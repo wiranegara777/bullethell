@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnemyControl : MonoBehaviour 
 {
+	public GameObject ExplosionGO;
 	float speed;
 
 	// Use this for initialization
@@ -34,5 +35,22 @@ public class EnemyControl : MonoBehaviour
 
 
 
+	}
+
+	void OnTriggerEnter2D(Collider2D col)
+	{
+		if ((col.tag == "PlayerShipTag") || (col.tag == "PlayerBulletTag"))
+		{
+			PlayExplosion ();
+			
+			Destroy (gameObject);
+		}
+	}
+
+	void PlayExplosion()
+	{
+		GameObject explosion = (GameObject)Instantiate (ExplosionGO);
+
+		explosion.transform.position = transform.position;
 	}
 }

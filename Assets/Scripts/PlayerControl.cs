@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class PlayerControl : MonoBehaviour {
 
 	public GameObject PlayerBulletGO; // gameplayer bullet
 	public GameObject BulletPositionPlayer;
-
+	public GameObject ExplosionGO;
 	public float speed;
 	// Use this for initialization
 	void Start () {
@@ -48,9 +49,25 @@ public class PlayerControl : MonoBehaviour {
 
 		//make sure position not outside the screen
 		pos.x = Mathf.Clamp (pos.x, min.x, max.x);
-		pos.y = Mathf.Clamp (pos.y, min.y, max.y);
+		pos.y = Mathf.Clamp (pos.y, min.y, max.y); 
 
 		//update the player position
 		transform.position = pos;
+	}
+	void OnTriggerEnter2D(Collider2D col)
+	{
+		if ((col.tag == "EnemyShipTag") || (col.tag == "EnemyBulletTag"))
+		{
+			PlayExplosion ();
+
+			Destroy (gameObject);
+		}
+	}
+
+	void PlayExplosion()
+	{
+		GameObject explosion = (GameObject)Instantiate (ExplosionGO);
+
+		explosion.transform.position = transform.position;
 	}
 }

@@ -262,6 +262,8 @@ MonoBehaviour:
   PlayerBulletGO: {fileID: 1456296083241088, guid: 2b04ba5b91f368042a0da39bf2ef7561,
     type: 2}
   BulletPositionPlayer: {fileID: 1748280156}
+  ExplosionGO: {fileID: 1839686185261372, guid: 4709f2f6395231846bc6ff5236637f9f,
+    type: 2}
   speed: 4
 --- !u!50 &1255011876
 Rigidbody2D:
