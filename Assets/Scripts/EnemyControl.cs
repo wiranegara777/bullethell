@@ -5,12 +5,15 @@ using UnityEngine;
 public class EnemyControl : MonoBehaviour 
 {
 	public GameObject ExplosionGO;
+	public AudioClip ledakan;
+	public AudioSource sumber;
 	float speed;
 
 	// Use this for initialization
 	void Start ()
 	{
-		speed = 2f;	
+		speed = 0.75f;	
+		sumber = GetComponent<AudioSource>(); 
 	}
 	
 	// Update is called once per frame
@@ -30,6 +33,7 @@ public class EnemyControl : MonoBehaviour
 
 		if (transform.position.y < min.y) 
 		{
+			
 			Destroy (gameObject);
 		}
 
@@ -41,8 +45,8 @@ public class EnemyControl : MonoBehaviour
 	{
 		if ((col.tag == "PlayerShipTag") || (col.tag == "PlayerBulletTag"))
 		{
+			sumber.PlayOneShot(ledakan);
 			PlayExplosion ();
-			
 			Destroy (gameObject);
 		}
 	}

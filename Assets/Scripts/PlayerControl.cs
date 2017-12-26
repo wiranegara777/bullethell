@@ -1,28 +1,76 @@
 ﻿using System.Collections;
+using UnityEngine.UI;
 using System.Collections.Generic;
 using UnityEngine;
 
 
 public class PlayerControl : MonoBehaviour {
 
+	public GameObject GameManagerGO;
+
 	public GameObject PlayerBulletGO; // gameplayer bullet
 	public GameObject BulletPositionPlayer;
+	public GameObject BulletPositionPlayer2;
+	public GameObject BulletPositionPlayer3;
 	public GameObject ExplosionGO;
+	//public audio AudioSource;
 	public float speed;
+	public Text LivesUIText;
+
+	const int MaxLives = 3; 
+	int lives;
+	//int skillCoolDown = 15;
+	bool skill = false;
+
+	public void Init()
+	{
+		lives = MaxLives;
+
+		LivesUIText.text = lives.ToString ();
+
+		gameObject.SetActive (true);
+	}
+
+	public AudioClip tembak;
+	public AudioSource audiosumber;
 	// Use this for initialization
 	void Start () {
-		
+		//tembak = GameObject.FindObjectOfType<AudioSource> ();
+		//GetComponent<AudioSource>().playOnAwake = false;
+		//GetComponent<AudioSource>().clip = tembak;
+		audiosumber = GetComponent<AudioSource>(); 
+		//audiosumber.clip = tembak;
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 
 		if (Input.GetKeyDown ("space")) 
 		{
-			GameObject bullet = (GameObject)Instantiate (PlayerBulletGO);
-			bullet.transform.position = BulletPositionPlayer.transform.position;
+			//AudioClip AudioSource = instantiatedProjectile.GetComponent(AudioSource);
+			//AudioClip = false;
+			audiosumber.PlayOneShot(tembak,0.5f);
+			if (skill == true)
+			{
+				GameObject bullet = (GameObject)Instantiate (PlayerBulletGO);
+				GameObject bullet2 = (GameObject)Instantiate (PlayerBulletGO);
+				GameObject bullet3 = (GameObject)Instantiate (PlayerBulletGO);
+				bullet.transform.position = BulletPositionPlayer.transform.position;
+				bullet2.transform.position = BulletPositionPlayer2.transform.position;
+				bullet3.transform.position = BulletPositionPlayer3.transform.position;
+				
+			}
+			else
+			{
+				GameObject bullet = (GameObject)Instantiate (PlayerBulletGO);
+
+				bullet.transform.position = BulletPositionPlayer.transform.position;	
+			}
+
+
 		}
 
+	
 		float x = Input.GetAxisRaw ("Horizontal"); //left, right
 		float y = Input.GetAxisRaw ("Vertical"); //up, down
 
@@ -30,6 +78,11 @@ public class PlayerControl : MonoBehaviour {
 
 		Move (direction);
 	}
+
+	void Cooldown(){
+		skill = false;
+	}
+
 
 	void Move(Vector2 direction)
 	{
@@ -59,8 +112,21 @@ public class PlayerControl : MonoBehaviour {
 		if ((col.tag == "EnemyShipTag") || (col.tag == "EnemyBulletTag"))
 		{
 			PlayExplosion ();
+			lives--;
+			LivesUIText.text = lives.ToString ();
+			if (lives == 0)
+			{
+				GameManagerGO.GetComponent<GameManager> ().SetGameManagerState (GameManager.GameManagerState.GameOver);
 
-			Destroy (gameObject);
+				//Destroy (gameObject);
+				gameObject.SetActive(false);
+			}
+		}
+
+		else if (col.tag == "Skill1Tag") 
+		{
+			skill = true;
+			Invoke ("Cooldown",15f);
 		}
 	}
 
