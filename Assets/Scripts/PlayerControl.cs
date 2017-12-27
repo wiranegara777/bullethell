@@ -28,6 +28,8 @@ public class PlayerControl : MonoBehaviour {
 
 		LivesUIText.text = lives.ToString ();
 
+		transform.position = new Vector2 (0, 0);
+
 		gameObject.SetActive (true);
 	}
 

@@ -9,6 +9,8 @@ TagManager:
   - PlayerBulletTag
   - EnemyBulletTag
   - Skill1Tag
+  - ScoreTextTag
+  - SCORE
   layers:
   - Default
   - TransparentFX
@@ -45,4 +47,13 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 3100543971
+    locked: 0
+  - name: GamePlay
+    uniqueID: 72284965
+    locked: 0
+  - name: Effects
+    uniqueID: 2789527287
     locked: 0

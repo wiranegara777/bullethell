@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnemyControl : MonoBehaviour 
 {
+	GameObject scoreUITextGO;
 	public GameObject ExplosionGO;
 	public AudioClip ledakan;
 	public AudioSource sumber;
@@ -14,6 +15,8 @@ public class EnemyControl : MonoBehaviour
 	{
 		speed = 0.75f;	
 		sumber = GetComponent<AudioSource>(); 
+
+		scoreUITextGO = GameObject.FindGameObjectWithTag ("SCORE");
 	}
 	
 	// Update is called once per frame
@@ -47,6 +50,9 @@ public class EnemyControl : MonoBehaviour
 		{
 			sumber.PlayOneShot(ledakan);
 			PlayExplosion ();
+
+			scoreUITextGO.GetComponent<GameScore> ().Score += 100;
+
 			Destroy (gameObject);
 		}
 	}
