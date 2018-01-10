@@ -51,25 +51,13 @@ public class PlayerControl : MonoBehaviour {
 		{
 			//AudioClip AudioSource = instantiatedProjectile.GetComponent(AudioSource);
 			//AudioClip = false;
-			audiosumber.PlayOneShot(tembak,0.5f);
-			if (skill == true)
-			{
-				GameObject bullet = (GameObject)Instantiate (PlayerBulletGO);
-				GameObject bullet2 = (GameObject)Instantiate (PlayerBulletGO);
-				GameObject bullet3 = (GameObject)Instantiate (PlayerBulletGO);
-				bullet.transform.position = BulletPositionPlayer.transform.position;
-				bullet2.transform.position = BulletPositionPlayer2.transform.position;
-				bullet3.transform.position = BulletPositionPlayer3.transform.position;
-				
-			}
-			else
-			{
-				GameObject bullet = (GameObject)Instantiate (PlayerBulletGO);
+			StartCoroutine(counter());
 
-				bullet.transform.position = BulletPositionPlayer.transform.position;	
-			}
+		}
 
-
+		if (Input.GetKeyUp ("space")) 
+		{
+			StopAllCoroutines ();
 		}
 
 	
@@ -138,4 +126,30 @@ public class PlayerControl : MonoBehaviour {
 
 		explosion.transform.position = transform.position;
 	}
+
+	IEnumerator counter(){
+		yield return new WaitForSeconds (0.3f);
+		//SceneManager.LoadScene ("GameEngine");
+
+		audiosumber.PlayOneShot(tembak,0.8f);
+		if (skill == true)
+		{
+			GameObject bullet = (GameObject)Instantiate (PlayerBulletGO);
+			GameObject bullet2 = (GameObject)Instantiate (PlayerBulletGO);
+			GameObject bullet3 = (GameObject)Instantiate (PlayerBulletGO);
+			bullet.transform.position = BulletPositionPlayer.transform.position;
+			bullet2.transform.position = BulletPositionPlayer2.transform.position;
+			bullet3.transform.position = BulletPositionPlayer3.transform.position;
+
+		}
+		else
+		{
+			GameObject bullet = (GameObject)Instantiate (PlayerBulletGO);
+
+			bullet.transform.position = BulletPositionPlayer.transform.position;	
+		}
+
+		StartCoroutine (counter ());
+
+	} 
 }

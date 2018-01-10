@@ -5,9 +5,8 @@ using UnityEngine;
 
 public class GameScore : MonoBehaviour 
 {
-
+	public GameObject GameManagerGO;
 	Text scoreTextUI;
-
 	int score;
 
 	public int Score
@@ -30,7 +29,10 @@ public class GameScore : MonoBehaviour
 	
 	// Update is called once per frame
 	void Update () {
-		
+		if (this.score == 1500) 
+		{
+			GameManagerGO.GetComponent<GameManager> ().SetGameManagerState (GameManager.GameManagerState.BossScene);
+		}	
 	}
 
 	void UpdateScoreTextUI()

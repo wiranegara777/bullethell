@@ -11,6 +11,9 @@ TagManager:
   - Skill1Tag
   - ScoreTextTag
   - SCORE
+  - BossHealth
+  - health
+  - instruksi
   layers:
   - Default
   - TransparentFX
